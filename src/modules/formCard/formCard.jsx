@@ -1,13 +1,21 @@
-import { RiArrowDownWideFill } from "@remixicon/react";
+import { RiArrowDownWideFill, RiArrowUpWideFill } from "@remixicon/react";
 import MainInfo from "../formComponents/mainInfo";
-export default function FormCard({ title, formComponent }) {
+export default function FormCard({ title, formComponent, isActive, onShow }) {
   return (
-    <div className="bg-white rounded-lg shadow-lg hover:bg-gray-100 transition duration-300 eas-in-out p-4 mb-4 cursor-pointer min-w-80">
-      <h2 className=" text-xl font-semibold flex items-center justify-between">
+    <div className="bg-white rounded-lg shadow-lg hover:shadow-blue-200 transition duration-300 eas-in-out p-4 mb-4 min-w-96 select-none ">
+      <h2
+        className=" text-xl font-semibold flex items-center justify-between cursor-pointer "
+        onClick={onShow}
+      >
         {title}
-        <RiArrowDownWideFill size={24} className="expand-icon" />
+        {!isActive ? (
+          <RiArrowDownWideFill size={24} className="expand-icon" />
+        ) : (
+          <RiArrowUpWideFill size={24} />
+        )}
       </h2>
-      {formComponent}
+      {/* If the component is active then open the form components.  */}
+      {isActive && <div>{formComponent}</div>}
     </div>
   );
 }

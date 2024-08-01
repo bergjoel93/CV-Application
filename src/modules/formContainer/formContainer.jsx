@@ -1,8 +1,12 @@
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import FormCard from "../formCard/formCard";
 import MainInfo from "../formComponents/mainInfo";
+import Education from "../formComponents/education/education";
+import WorkExperience from "../formComponents/workExperience";
+import Skills from "../formComponents/skills";
 
 export default function FormContainer() {
+  const [activeIndex, setActiveIndex] = useState(null);
   const cards = [
     {
       id: 0,
@@ -12,23 +16,34 @@ export default function FormContainer() {
     {
       id: 1,
       title: "Education",
-      component: "<Education/>",
+      component: <Education />,
     },
     {
       id: 2,
       title: "Work Experience",
-      component: "<WorkExperience/>",
+      component: <WorkExperience />,
     },
     {
       id: 3,
       title: "Skills",
-      component: "<Skills/>",
+      component: <Skills />,
     },
   ];
+
+  const handleShow = (id) => {
+    // Toggle the active index if the same card is clicked.
+    setActiveIndex(activeIndex === id ? null : id);
+  };
+
   const cardElements = cards.map((card) => (
     <Fragment key={card.id}>
-      <FormCard title={card.title} formComponent={card.component}></FormCard>
+      <FormCard
+        title={card.title}
+        formComponent={card.component}
+        isActive={activeIndex === card.id}
+        onShow={() => handleShow(card.id)}
+      />
     </Fragment>
   ));
-  return <div className="border m-4 p-4">{cardElements}</div>;
+  return <div className="border m-4 p-4 rounded-xl">{cardElements}</div>;
 }
