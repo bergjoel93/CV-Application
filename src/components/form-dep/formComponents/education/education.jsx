@@ -4,23 +4,25 @@ import AddEducation from "./addEducation";
 // User will click on card. It expands showing the Education cards and an add education button. Add logic so that if Add education button is clicked the Add education form will replace all of the components.
 export default function Education() {
   const [addEducation, setAddEducation] = useState(false); // add new state
-  const [editEducation, setEditEducation] = useState(null); // edit state
+  const [editEducation, setEditEducation] = useState(null); // edit state (assigned to education object that will be edited. )
   const [educationList, setEducationList] = useState([
+    // educationList state.
     {
+      // default education
       id: 0,
       degree: "A.S. Computer Science",
       college: "Salt Lake Community College",
       gpa: "3.96",
-      startDate: "January 2021",
-      endDate: "December 2023",
+      startDate: new Date("01-05-2021"),
+      endDate: new Date("12-05-2023"),
     },
     {
       id: 1,
       degree: "B.S. Environmental Science",
       college: "Westminster University",
       gpa: "3.64",
-      startDate: "August 2012",
-      endDate: "June 2016",
+      startDate: new Date("08-05-2012"),
+      endDate: new Date("06-05-2016"),
     },
   ]); // education list state
 

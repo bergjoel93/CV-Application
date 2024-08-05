@@ -9,7 +9,7 @@ export default function FormCard({ title, formComponent, isActive, onShow }) {
       >
         {title}
         {!isActive ? (
-          <RiArrowDownWideFill size={24} className="expand-icon" />
+          <RiArrowDownWideFill size={24} />
         ) : (
           <RiArrowUpWideFill size={24} />
         )}

@@ -1,6 +1,6 @@
-import TextInput from "../../genericComponents/textInput";
+import TextInput from "../../../genericComponents/textInput";
 import { RiDeleteBin6Line } from "@remixicon/react";
-import Checkbox from "../../genericComponents/checkbox";
+import Checkbox from "../../../genericComponents/checkbox";
 import { useState, useEffect } from "react";
 export default function AddEducation({
   onSave,
@@ -50,11 +50,12 @@ export default function AddEducation({
         )}
       </h1>
       <TextInput
-        label="Degree"
         type="text"
+        label="Degree"
         id="degree"
         value={degree}
         onChange={(e) => setDegree(e.target.value)}
+        required
       />
       <TextInput
         type="text"
@@ -62,6 +63,7 @@ export default function AddEducation({
         id="college"
         value={college}
         onChange={(e) => setCollege(e.target.value)}
+        required
       />
       <TextInput
         type="text"
@@ -72,6 +74,7 @@ export default function AddEducation({
         title="Please enter a valid GPA (e.g., 3.96)"
         value={gpa}
         onChange={(e) => setGpa(e.target.value)}
+        required
       />
       <TextInput
         type="date"
@@ -79,6 +82,7 @@ export default function AddEducation({
         id="startDate"
         value={startDate}
         onChange={(e) => setStartDate(e.target.value)}
+        required
       />
       <TextInput
         type="date"

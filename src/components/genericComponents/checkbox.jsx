@@ -5,8 +5,9 @@ export default function Checkbox({ label, id, ...props }) {
         {label}
       </label>
       <input
-        className=" shadow appearance-none border rounded w-6 h-6 text-gray-700 leading-tight focus:outline-none focus:shadow-outline cursor-pointer text-blue-600"
         type="checkbox"
+        className="cursor-pointer h-full w-5 "
+        name={id}
         id={id}
         {...props}
       />
