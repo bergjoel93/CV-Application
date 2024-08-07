@@ -2,8 +2,10 @@ import { useState, useEffect } from "react";
 import TextInput from "../../genericComponents/textInput";
 import { RiDeleteBin6Line } from "@remixicon/react";
 import Checkbox from "../../genericComponents/checkbox";
+import TextArea from "../../genericComponents/TextArea";
 
 export default function AddExperience({
+  experienceList,
   experienceToEdit,
   onSave,
   onCancel,
@@ -50,11 +52,12 @@ export default function AddExperience({
   function isFormValid() {
     // Ensure required fields are filled out
     return (
-      formData.degree &&
-      formData.college &&
-      formData.gpa &&
+      formData.jobTitle &&
+      formData.employer &&
+      formData.department &&
       formData.startDate &&
-      (!formData.present ? formData.endDate : true)
+      (!formData.present ? formData.endDate : true) &&
+      formData.jobDutiesList[0]
     );
   }
 
@@ -64,6 +67,43 @@ export default function AddExperience({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [formData]); // Re-run this effect whenever formData changes
 
+  function updateJobDuty(e) {
+    const index = e.target.id;
+    const newValue = e.target.value;
+    // get original list
+    const oldList = formData.jobDutiesList;
+    const newList = oldList.map((item, i) => (i === index ? newValue : item));
+
+    setFormData((prevData) => {
+      const updatedDuties = [...prevData.jobDutiesList];
+      updatedDuties[index] = newValue;
+
+      return {
+        ...prevData,
+        jobDutiesList: updatedDuties,
+      };
+    });
+  }
+
+  function deleteJobDuty(e) {
+    const index = parseInt(e.currentTarget.getAttribute("data"), 10);
+    console.log(index);
+    // get the form data job duties list.
+    const oldJobDutiesList = formData.jobDutiesList;
+    // removes the job duty based off index.
+    const newJobDutiesList = formData.jobDutiesList.filter(
+      (_, i) => i !== index
+    );
+    setFormData({ ...formData, jobDutiesList: newJobDutiesList });
+  }
+
+  function addJobDuty() {
+    const newJobDutiesList = [...formData.jobDutiesList, ""];
+    setFormData({ ...formData, jobDutiesList: newJobDutiesList });
+  }
+
+  // create new array, remove the desired index. update formdata.
+
   return (
     <>
       <h1 className="font-bold text-xl flex items-center justify-between gap-2 w-full">
@@ -72,8 +112,7 @@ export default function AddExperience({
           <button
             className="text-xs bg-red-200 hover:bg-red-300 rounded-full p-2"
             onClick={() => {
-              console.log("Delete button clicked");
-              onDelete(experienceToEdit.id);
+              onDelete(experienceToEdit.id, "experience");
             }}
           >
             <RiDeleteBin6Line size="16" />
@@ -126,6 +165,39 @@ export default function AddExperience({
         checked={formData.present}
         onChange={handleChange}
       />
+      {/* Job Duties List */}
+      {formData.jobDutiesList.map((jobDuty, index) => (
+        <div key={index} className=" w-full bg-slate-100 rounded-lg p-3">
+          <div className="flex justify-between pb-1">
+            <label htmlFor={index} className=" text-sm text-right">
+              {"Job Duty #" + (index + 1) + ":"}
+            </label>
+            <button
+              className="text-sm bg-red-200 hover:bg-red-300 rounded-full p-1"
+              data={index}
+              onClick={deleteJobDuty}
+            >
+              <RiDeleteBin6Line size="12" />
+            </button>
+          </div>
+
+          <textarea
+            className="  appearance-none border rounded w-full text-gray-700 p-3 text-sm outline-none focus:shadow-outline"
+            name={"jobDuty" + index}
+            id={index}
+            value={jobDuty}
+            onChange={updateJobDuty}
+          />
+        </div>
+      ))}
+
+      {/* Add job duty button */}
+      <button
+        className="text-black text-lg cursor-pointer  hover:scale-110 transition-transform"
+        onClick={addJobDuty}
+      >
+        + Add Job Duty
+      </button>
       <div className="flex w-full justify-center gap-3">
         <button
           className="text-black bg-slate-200 hover:bg-slate-400 rounded-full text-sm h-8 w-24 mt-2 mb-4 font-bold"
@@ -142,7 +214,7 @@ export default function AddExperience({
           }
           onClick={() => {
             console.log("save button clicked");
-            onSave(formData);
+            onSave(formData, experienceList, "experience");
           }}
           disabled={!formValid}
         >

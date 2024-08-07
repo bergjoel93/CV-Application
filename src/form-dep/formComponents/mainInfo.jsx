@@ -1,5 +1,5 @@
 import { useState } from "react";
-import TextInput from "../../genericComponents/textInput";
+import TextInput from "../../components/genericComponents/textInput";
 
 export default function MainInfo() {
   const [mainInfo, setMainInfo] = useState({

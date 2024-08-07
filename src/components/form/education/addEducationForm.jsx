@@ -4,6 +4,7 @@ import { RiDeleteBin6Line } from "@remixicon/react";
 import Checkbox from "../../genericComponents/checkbox";
 
 export default function AddEducation({
+  educationList,
   educationToEdit,
   onSave,
   onCancel,
@@ -71,8 +72,8 @@ export default function AddEducation({
           <button
             className="text-xs bg-red-200 hover:bg-red-300 rounded-full p-2"
             onClick={() => {
-              console.log("Delete button clicked");
-              onDelete(educationToEdit.id);
+              //console.log("Delete button clicked");
+              onDelete(educationToEdit.id, "education");
             }}
           >
             <RiDeleteBin6Line size="16" />
@@ -143,8 +144,8 @@ export default function AddEducation({
             " rounded-full text-sm h-8 w-24 mt-2 mb-4 font-bold"
           }
           onClick={() => {
-            console.log("save button clicked");
-            onSave(formData);
+            //console.log("save button clicked");
+            onSave(formData, educationList, "education");
           }}
           disabled={!formValid}
         >

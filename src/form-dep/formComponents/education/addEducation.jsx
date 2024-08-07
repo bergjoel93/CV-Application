@@ -1,6 +1,6 @@
-import TextInput from "../../../genericComponents/textInput";
+import TextInput from "../../../components/genericComponents/textInput";
 import { RiDeleteBin6Line } from "@remixicon/react";
-import Checkbox from "../../../genericComponents/checkbox";
+import Checkbox from "../../../components/genericComponents/checkbox";
 import { useState, useEffect } from "react";
 export default function AddEducation({
   onSave,
